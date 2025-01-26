@@ -5,20 +5,6 @@
 (require "reduction.rkt")
 
 
-(define (list->csvstring lines)
-  (define (list-csvline l)
-    (string-join (map number->string l) ","))
-  (string-join (cons "n,time(ms)"  (map list-csvline lines)) "\n"))
-
-
-(define (write-csv lists)
-  (begin
-    (define fout (open-output-file "spice-time-vs-slow.csv" #:exists `truncate))
-    (display (list->csvstring lists) fout)
-    (close-output-port fout)
-    `finish!))
-
-
 (define (time-of func)
   (define N 4)
   (define (ntimes func n)
